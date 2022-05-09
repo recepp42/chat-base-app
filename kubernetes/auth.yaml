@@ -12,10 +12,13 @@ spec:
         app: auth
     spec:
       containers:
-      - name: auth                                                         
+      - name: auth
         imagePullPolicy: IfNotPresent
         image: auth:latest
-        
+        ports:
+          - containerPort: 3000
+            name: http-web-svc
+
 ---
 apiVersion: v1
 kind: Service
@@ -26,5 +29,6 @@ spec:
     app: auth
   ports:
   - name: auth
+    protocol: TCP
     port: 3000
- 
+    targetPort: http-web-svc

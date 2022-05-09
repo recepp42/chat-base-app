@@ -12,10 +12,12 @@ spec:
         app: chat
     spec:
       containers:
-      - name: chat                                                           
+      - name: chat
         imagePullPolicy: IfNotPresent
-        image: chat
-        
+        image: chat:latest
+        ports:
+          - containerPort: 3000
+            name: http-web-svc
 ---
 apiVersion: v1
 kind: Service
@@ -26,5 +28,6 @@ spec:
     app: chat
   ports:
   - name: chat
+    protocol: TCP
     port: 3000
- 
+    targetPort: http-web-svc
